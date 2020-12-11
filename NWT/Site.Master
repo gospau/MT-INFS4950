@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NWT.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server" class="form-horizontal">
+
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed"
+                            data-toggle="collapse" data-target="#mainMenu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/Default">North Wind</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="mainMenu">
+                        <ul class="nav navbar-nav">
+
+                            <li><a href="/CustomerDisplay.aspx">Customer Display</a> </li>
+                            <li><a href="/Order.aspx">Order Display</a></li>
+                            <li><a href="/Product.aspx">Product Display</a></li>
+                            <li><a href="/Supply.aspx">Supplier Display</a></li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">Administrator&nbsp;<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Administration/EditCustomer.aspx">Customer</a> </li>
+                                    <li><a href="/Administration/EditProduct.aspx">Product</a></li>
+                                    <li><a href="/Administration/EditSupplier.aspx">Supplier</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="/Contact">Contact Us</a></li>
+                        </ul>
+
+                        <asp:LoginView ID="SPLogin" runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                    <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello,
+                                        <%: Context.User.Identity.GetUserName() %> !</a></li>
+                                    <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                    <li>
+                                        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect"
+                                            LogoutText="Log Off" LogoutPageUrl="~/Default" OnLoggingOut="Unnamed_LoggingOut" />
+                                    </li>
+                                </ul>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+
+                    </div>
+                </div>
+            </nav>
+
+
+            <header class="jumbotron">
+
+                <img src="/Images/northwindlogo.png" class="col-md-2" />
+                <h1>Northwind Traders</h1>
+
+            </header>
+
+            <main>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </main>
+
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </form>
+
+</body>
+</html>
